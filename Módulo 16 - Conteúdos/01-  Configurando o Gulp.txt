@@ -1,0 +1,23 @@
+Gulp - Utilizado para automação de processos
+
+Site oficial:
+- gulpjs.com
+
+Instalação:
+
+npm install --global gulp-cli
+
+Iniciação do pojeto Node dentro do projeto requerido.
+npm init
+
+Instalação de dependência em ambiente de desenvolvimento
+ npm install --save-dev gulp
+
+Iniciando o projeto Node:
+
+Dentro do proejto no package.json inserir o Script
+
+"gulp": "gulp",
+
+- Criação do arquivo - gulpfile.js na pasta do arquivo.
+- Adicionar o arquivo .gitignore > inserir no arquivo o módulo node_modules.

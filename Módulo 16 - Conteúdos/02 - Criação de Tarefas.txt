@@ -1,0 +1,65 @@
+Criação de Tarefa Exemplo:
+
+- Criar arquivo sum.js;
+- Criar função Somar;
+
+function somar(a, b) {
+    return a  + b;
+}
+
+module.exports = somar;  -> Pode ser exportado e chamado por um outro arquivo.
+
+- Criar arquivo aritmetica.js;
+- Declarar variável somar;
+- Criar console para apresentar na tela;
+- Executar o npm run gulp; -> Nesse exemplo será exibido em tela a soma apresentada do console.log
+
+const somar = require('./sum');
+
+console.log('Somar: ', somar(10, 20));
+
+
+Tarefas Públicas -> São aquelas que são exportadas e chamadas via linha de comando.
+
+function funcaoPadrao(callback) {
+    console.log("Executando via Gulp");
+    callback();
+}
+
+
+Tarefas Privadas -> É uma função Js chamada por uma outra função (pública ou privada), não acessível pela linha de comando.
+
+function dizOi(callback) {
+    console.log("Olá Gulp");
+    dizTchau();
+    callback();
+}
+
+function dizTchau() {
+    console.log("Tchau Gulp");
+}
+
+Exemplo no caso é a função dizTchau(), que não tem o parâmetro do callback passado, apenas encaminhado para a função dizOi.
+
+As funções são escritas no arquivo gulpfile.js
+
+EXECUTAR TAREFAS EM SÉRIE
+
+2 categorias 
+
+Tarefas executadas em série.
+Tarefas executadas em paralelo.
+
+
+Em série
+
+-Importar o pacote do gulp no gulpfilejs.
+
+const gulp = require ('gulp');
+
+exports.default = gulp.serires(funcaoPadrao, dizOi);-> Passado como parâmetros as tarefas a ser executadas em séries.
+
+
+Em formas paralelas
+
+exports.default = gulp.parallel(funcaoPadrao, dizOi)

@@ -1,0 +1,91 @@
+Instalação de Plugins:
+
+npm install --save dev gulp-sass
+npm install --save dev sass
+
+Inserindo no gulpfiles
+
+const sass = require('gulp-sass')(require('sass')) -> [Importação composta]: O gulp-sass é responsável por integrar o SASS com o gulp, contudo quem vai compilar o SASS é o próximo sass,
+transformando o SASS em CSS.
+
+
+Pegando os arquivos fontes com a extensão scss.
+	return gulp.src('./source/styles/*.scss')
+
+No exemplo apenas o main deverá ser criado devido apenas ele conter arquivos a ser compilados e transformado em css.
+
+function compilaSass() {
+    return gulp.src('./source/styles/main.scss')
+        .pipe(sass())
+	.pipe(gulp.dest('./build/styles'));
+}
+
+gulp.dest aponta o destino de onde será acrescentado no SASS dentro do gulp.
+
+O pipe é o encadeamento pra chamar as 2 funções ou mais.
+
+
+- Criar arquivos
+
+- Pasta build + pasta style;
+- Pasta source + pasta style;
+
+- Criar arquivos
+
+main.scss e variaveis.scss na pasta source/style;
+
+- Importar o arquivo variaveis no main.scss
+	@use 'variaveis'
+
+	body {
+	     background-color: variaveis.$corPrincial
+	}
+
+- Criar em variaveis.scss a corPrincipal:
+	$corPrincipal: red;
+
+Executar o sass pelo gulp;
+	No terminal npm run gulp sass;
+
+Minificar o arquivo sass
+
+function compilaSass() {
+    return gulp.src('./source/styles/main.scss')
+        .pipe(sass({
+		outputStyle: 'compressed'
+	}))
+        .pipe(gulp.dest('./build/styles'));
+}
+
+
+Source Maps -> Usado para informar onde a regra está no arquivo fonte e não na regra final.
+	Neste caso ao realizar a verificação no Live Server e aba de desenvolvimento (f12) o conteúdo está aplicado no main.css (linha 1), já no nosso arquivo de teste está em outra linha (linha 4).
+
+Instalação do pacote
+
+npm install --save-dev gulp-sourcemaps
+
+Importar no arquivo gulpfile.js
+
+const sourceMaps = require ('gulp-sourcemaps');
+
+function compilaSass() {
+    return gulp.src('./source/styles/main.scss')
+        .pipe(sourceMaps.init())
+        .pipe(sass({
+            outputStyle: 'compressed'
+        }))
+        .pipe(sourceMaps.write('./maps'))
+        .pipe(gulp.dest('./build/styles'));
+}
+
+
+Deixar o gulp rodando para que não precise sempre utilizar o comando npm run gulp sass a cada alteração
+
+- Criar Tarefa;
+
+exports.watch = function() {
+    gulp.watch('./source/styles/*.scss', {ignoreInitial: false}, gulp.series(compilaSass));
+}
+
+Execução npm run gulp watch

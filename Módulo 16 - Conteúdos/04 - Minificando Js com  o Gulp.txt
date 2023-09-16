@@ -1,0 +1,70 @@
+Instalação do pacote
+
+npm instal --save-dev gulp-uglify
+
+const uglify = require('gulp-uglify');
+
+function comprimeJavaScript() {
+    return gulp.src('./source/script.*js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./build/scripts'))
+}
+
+exports.javascript = comprimeJavaScript;
+
+Criar Pasta scripts em source;
+
+Executar npm run gulp javascript
+
+
+Transformar conteúdo ilegível para não ter cópias.
+
+Instalação do pacote
+
+npm install --save-dev gulp-obfuscate
+
+const obfuscate = require('gulp-obfuscate');
+
+function comprimeJavaScript() {
+    return gulp.src('./source/scripts/*.js')
+        .pipe(uglify())
+        .pipe(obfuscate())
+        .pipe(gulp.dest('./build/scripts'));
+}
+
+
+COMPRIMIR IMAGEM
+
+Instalação do pacote
+
+npm install --save-dev gulp-imagemin
+
+const imagemin = require('gulp-imagemin');
+
+function comprimeImagens() {
+    return gulp.src('./source/images/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('./build/images'));
+}
+
+exports.images = comprimeImagens;
+
+Criar estrutura (Pasta);
+
+Source > Images
+
+Error [ERR_REQUIRE_ESM]: require() of ES Module C:\Users\Wanderson Gabriel\Desktop\Módulo 16 - 
+automação de tarefas com Gulp\node_modules\gulp-imagemin\index.js from C:\Users\Wanderson Gabriel\Desktop\Módulo 16 - 
+automação de tarefas com Gulp\gulpfile.js not supported.
+
+Este erro ocorre devido a versão atual (8.0.0) do gulp não da suporte no formato require, com isso é necessário instalar versões antigas.
+
+npm install --save-dev gulp-imagemin@7.1.0 <- Instalando versão antiga.
+
+
+PARA VERSIONAR NO GIT NÃO PRECISA APRESENTAR A PASTA BUILD, COM ISSO INSERIR O BUILD NO .GITIGNORE
+
+Para quem for baixar o projeto pelo github, basta fazer o clone e inserir no projeto o comando
+
+npm install -> Irá instalar todas as dependências do Package.json.
+npm run gulp -> Para execução.
